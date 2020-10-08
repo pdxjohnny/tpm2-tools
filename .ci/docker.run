@@ -84,6 +84,8 @@ popd
 if [ "${TPM2_TSS_VERSION}" == "master" ];then
   echo "v4X compatibility test follows"
   curr_branch=$(git log HEAD --pretty=oneline --abbrev-commit| head -n 1|awk  '{print $1}')
+  git clean -dn
+  git clean -xdf
   git fetch origin --tags -q
   git checkout 4.3.0 test/integration/tests -q
   #
