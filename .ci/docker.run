@@ -86,10 +86,8 @@ if [ "${TPM2_TSS_VERSION}" == "master" ];then
   curr_branch=$(git log HEAD --pretty=oneline --abbrev-commit| head -n 1|awk  '{print $1}')
   git remote add upstream https://github.com/tpm2-software/tpm2-tools
   git fetch upstream --tags
-  git clean -dn
-  git clean -xdf
+  git clean -xdf tests/integration/fapi/
 
-  ./bootstrap
   git checkout 4.3.0 test/integration/tests
   #
   # RSA OAEP decryption was enabled as a feature after 4.X and so testing it
@@ -104,6 +102,8 @@ if [ "${TPM2_TSS_VERSION}" == "master" ];then
   # symlink is an irrelevant test for 4.X branch
   #
   rm test/integration/tests/symlink.sh
+
+  ./bootstrap
 
   #
   # Beyond 4.X release, the tpm2-tools were combined into a single
